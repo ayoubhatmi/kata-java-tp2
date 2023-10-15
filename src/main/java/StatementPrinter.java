@@ -6,7 +6,7 @@ public class StatementPrinter {
   public static final String TRAGEDY = "tragedy";
   public static final String COMEDY = "comedy";
 
-  public String print(Invoice invoice, HashMap<String, Play> plays) {
+  public String print(Invoice invoice, HashMap<String,Play> plays) {
 
     StringBuilder result = new StringBuilder();
     NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
