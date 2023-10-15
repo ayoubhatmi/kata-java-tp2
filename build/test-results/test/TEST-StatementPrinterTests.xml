@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-10T15:08:14" hostname="ASUS" time="0.453">
+<testsuite name="StatementPrinterTests" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-10-15T14:52:58" hostname="ada.local.isima.fr" time="0.165">
   <properties/>
-  <testcase name="exampleStatement()" classname="StatementPrinterTests" time="0.442"/>
-  <testcase name="statementWithNewPlayTypes()" classname="StatementPrinterTests" time="0.009"/>
+  <testcase name="exampleStatement()" classname="StatementPrinterTests" time="0.155"/>
+  <testcase name="statementWithNewPlayTypes()" classname="StatementPrinterTests" time="0.007"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[java.lang.instrument.IllegalClassFormatException: Error while instrumenting Play.
 	at org.jacoco.agent.rt.internal_3570298.CoverageTransformer.transform(CoverageTransformer.java:94)
