@@ -16,22 +16,7 @@ public class StatementPrinter {
 
     for (Performance perf : invoice.performances) {
       Play play = plays.get(perf.playID);
-      double thisAmount = 0;
-
-      switch (play.type) {
-        case TRAGEDY:
-          thisAmount = 400.0;
-          thisAmount = Math.max(thisAmount, thisAmount + 10.00 * (perf.audience - 30));
-
-          break;
-        case COMEDY:
-          thisAmount = 300.00;
-          thisAmount = Math.max(thisAmount, thisAmount + 100.00 + 5.00 * (perf.audience - 20));
-          thisAmount += 3.00 * perf.audience;
-          break;
-        default:
-          throw new Error("unknown type: ${play.type}");
-      }
+      double thisAmount = calculatePerformanceAmount(play,perf);
 
       // add volume credits
       volumeCredits += Math.max(perf.audience - 30, 0);
@@ -56,4 +41,29 @@ public class StatementPrinter {
     result.append(String.format("You earned %s credits\n", volumeCredits));
     return result.toString();
   }
+  private double calculatePerformanceAmount(Play play, Performance perf) {
+    double thisAmount =0;
+    switch (play.type) {
+      case TRAGEDY:
+          return calculateTragedyAmount(perf.audience);
+      case COMEDY:
+          return calculateComedyAmount(perf.audience);
+      default:
+        throw new Error("unknown type: ${play.type}");
+    }
+}
+  private double calculateTragedyAmount(int audience) {
+      double baseAmount = 400.0;
+      return Math.max(baseAmount, baseAmount + 10.00 * (audience - 30));
+}
+
+  private double calculateComedyAmount(int audience) {
+      double baseAmount = 300.00;
+      double amount = Math.max(baseAmount, baseAmount + 100.00 + 5.00 * (audience - 20));
+      amount += 3.00 * audience;
+      return amount;
+  }
+
+
+  
 }
