@@ -7,10 +7,12 @@ public class StatementPrinter {
   public static final String COMEDY = "comedy";
 
   public String print(Invoice invoice, HashMap<String, Play> plays) {
-    double totalAmount = 0;
-    int volumeCredits = 0;
+
     StringBuilder result = new StringBuilder();
     NumberFormat frmt = NumberFormat.getCurrencyInstance(Locale.US);
+
+    double totalAmount = 0;
+    int volumeCredits = 0;
 
     result.append(String.format("Statement for %s\n", invoice.customer));
 
@@ -18,11 +20,7 @@ public class StatementPrinter {
       Play play = plays.get(perf.playID);
       double thisAmount = calculatePerformanceAmount(play,perf);
 
-      // add volume credits
-      volumeCredits += Math.max(perf.audience - 30, 0);
-      // add extra credit for every ten comedy attendees
-      if (COMEDY.equals(play.type)) volumeCredits +=
-        Math.floor(perf.audience / 5);
+      volumeCredits += calculateVolumeCredits(play, perf);
 
       // append line for this order
       result.append(
@@ -41,6 +39,8 @@ public class StatementPrinter {
     result.append(String.format("You earned %s credits\n", volumeCredits));
     return result.toString();
   }
+
+
   private double calculatePerformanceAmount(Play play, Performance perf) {
     double thisAmount =0;
     switch (play.type) {
@@ -48,14 +48,17 @@ public class StatementPrinter {
           return calculateTragedyAmount(perf.audience);
       case COMEDY:
           return calculateComedyAmount(perf.audience);
+
       default:
         throw new Error("unknown type: ${play.type}");
     }
 }
+
   private double calculateTragedyAmount(int audience) {
       double baseAmount = 400.0;
       return Math.max(baseAmount, baseAmount + 10.00 * (audience - 30));
 }
+
 
   private double calculateComedyAmount(int audience) {
       double baseAmount = 300.00;
@@ -63,6 +66,16 @@ public class StatementPrinter {
       amount += 3.00 * audience;
       return amount;
   }
+
+
+  private int calculateVolumeCredits(Play play, Performance perf) {
+        int credits = Math.max(perf.audience - 30, 0);
+
+        if (COMEDY.equals(play.type)) {
+            credits += perf.audience / 5;
+        }
+        return credits;
+    }
 
 
   
