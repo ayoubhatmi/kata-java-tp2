@@ -20,13 +20,13 @@ public class StatementPrinter {
 
       switch (play.type) {
         case TRAGEDY:
-          thisAmount = Math.max(400.0, 400.0 + 10.00 * (perf.audience - 30));
+          thisAmount = 400.0;
+          thisAmount = Math.max(thisAmount, thisAmount + 10.00 * (perf.audience - 30));
+
           break;
         case COMEDY:
           thisAmount = 300.00;
-          if (perf.audience > 20) {
-            thisAmount += 100.00 + 5.00 * (perf.audience - 20);
-          }
+          thisAmount = Math.max(thisAmount, thisAmount + 100.00 + 5.00 * (perf.audience - 20));
           thisAmount += 3.00 * perf.audience;
           break;
         default:
